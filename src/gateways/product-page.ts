@@ -43,4 +43,4 @@ function apiCategoryToModel(category: APICategory): Category {
   };
 }
 
-export const mockProductPageGateway = new MockProductPageGateway()
+export const mockProductPageGateway = new MockProductPageGateway();
