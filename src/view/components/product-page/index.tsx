@@ -32,11 +32,17 @@ export const ProductPage: FC = () => {
     <div>
       {isModalOpen ? (
         <Modal onClose={onModalClose}>
-          <ModalPageProduct />{' '}
+          <ModalPageProduct />
         </Modal>
       ) : null}
+      <div className="header">
+        <div className="header-content"></div>
+        <div className="header-content">
+          <p>Сравнение</p>
+        </div>
+      </div>
       <div className="header-container">
-        <div>
+        <div className="product">
           <ProductItem />
         </div>
         <div className="compare-panel">

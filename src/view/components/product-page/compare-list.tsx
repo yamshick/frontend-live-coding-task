@@ -15,7 +15,7 @@ export const CompareList: FC = () => {
   };
 
   return (
-    <div className="compare-list">
+    <div>
       {products.map((product) => (
         <div key={product.id} className="compare-item">
           <h3>{product.name}</h3>

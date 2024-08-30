@@ -12,9 +12,9 @@ export const ProductItem: FC = () => {
   }
 
   return (
-    <div className="product">
+    <div>
       <h3>{product?.name}</h3>
-      <p>{product?.price}</p>
+      <p>Price: {product?.price}</p>
     </div>
   );
 };
