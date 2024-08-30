@@ -9,7 +9,7 @@ import {
   productSelector,
 } from '../../../store/selectors/product-page';
 
-export const LinkedProducts: FC = ({}) => {
+export const LinkedProducts: FC = () => {
   const isLoading = useSelector(isLinkedProductsLoadingSelector);
   // TODO analog and related selectors
   const linkedProducts = useSelector(linkedProductsSelector);

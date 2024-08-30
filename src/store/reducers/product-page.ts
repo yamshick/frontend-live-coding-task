@@ -5,6 +5,9 @@ import {
   setIsProductLoading,
   setLinkedProducts,
   setIsLinkedProductsLoading,
+  addProductToCompareList,
+  setProductsComparingList,
+  deleteProductFromCompareList,
 } from '../actions/product-page';
 
 type CatalogPageState = {
@@ -34,5 +37,22 @@ export const productPageReducer = createReducer<CatalogPageState>(defaultState, 
     .addCase(setIsLinkedProductsLoading, (state, action) => ({
       ...state,
       isLinkedProductsLoading: action.payload,
+    }))
+    .addCase(setProductsComparingList, (state, action) => ({
+      ...state,
+      comparingProducts: action.payload,
+    }))
+    .addCase(addProductToCompareList, (state, action) => ({
+      ...state,
+      comparingProducts: [
+        ...(state.comparingProducts || []).filter((product) => product.id !== action.payload.id),
+        action.payload,
+      ],
+    }))
+    .addCase(deleteProductFromCompareList, (state, action) => ({
+      ...state,
+      comparingProducts: (state.comparingProducts || []).filter(
+        (product) => product.id !== action.payload
+      ),
     }));
 });

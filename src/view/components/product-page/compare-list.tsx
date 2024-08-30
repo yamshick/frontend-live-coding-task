@@ -1,18 +1,28 @@
 import { FC } from 'react';
-import { Product } from '../../../models';
 import './product-page.css';
+import { useSelector } from 'react-redux';
+import { compareListSelector } from '../../../store/selectors/product-page';
+import { useDispatch } from 'react-redux';
+import { deleteProductFromCompareList } from '../../../store/actions/product-page';
 
-interface ICompareList {
-  products: Product[];
-}
+export const CompareList: FC = () => {
+  const products = useSelector(compareListSelector);
 
-export const CompareList: FC<ICompareList> = ({ products }) => {
+  const dispatch = useDispatch();
+
+  const onDeleteClick = (id: string) => {
+    dispatch(deleteProductFromCompareList(id));
+  };
+
   return (
     <div className="compare-list">
       {products.map((product) => (
         <div key={product.id} className="compare-item">
           <h3>{product.name}</h3>
-          <p>{product.price}</p>
+          <p>Price: {product.price}</p>
+          <button onClick={() => onDeleteClick(product.id)} className="compare-item-delete-button">
+            x
+          </button>
         </div>
       ))}
     </div>

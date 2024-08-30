@@ -28,5 +28,12 @@
 
 .compare-item {
     border-style: dashed;
-    border: 1px;
+    border-width: 1px;
+    position: relative;
+}
+
+.compare-item-delete-button {
+    position: absolute;
+    top: 2px;
+    right: 2px;
 }

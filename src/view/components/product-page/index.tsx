@@ -24,7 +24,7 @@ export const ProductPage: FC = () => {
           <ProductItem />
         </div>
         <div className="compare-panel">
-          <CompareList products={[]} />
+          <CompareList />
         </div>
       </div>
       <LinkedProducts />
