@@ -1,4 +1,22 @@
-.container {
+.header-container {
     display: flex;
     justify-content: space-between;
+}
+
+.product {
+    border-style: dashed none dashed dashed;
+    border-width: 1px;
+    width: 50%;
+}
+
+.product-with-compare-panel {
+    border-style: dashed ;
+    border-width: 1px;
+    width: 49%;
+}
+
+.compare-panel {
+    border: dashed;
+    border-width: 1px;
+    width: 49%;
 }
