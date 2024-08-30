@@ -1,6 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { combineReducers } from 'redux';
+import { combineReducers, applyMiddleware } from 'redux';
 import { productPageReducer } from './reducers/product-page';
+// @ts-ignore
+import logger from 'redux-logger';
 
 export const rootReducer = combineReducers({
   productPage: productPageReducer,
@@ -9,22 +11,10 @@ export type RootState = ReturnType<typeof rootReducer>;
 
 const preloadedState: Partial<RootState> = {};
 
-
-// @ts-ignore
-const logMiddleware = (store: {dispatch: () => void, getState: () => RootState}) => (next) => (action) => {
-  const prevState = store.getState()
-  const result = next(action);
-  console.log('ACTION', {action, prevState, state: store.getState()})
-  return result;
-};
-
 export const store = configureStore({
   reducer: rootReducer,
   preloadedState,
-  middleware: (getDefaultMiddleware) =>
-// @ts-ignore
-  getDefaultMiddleware().concat(logMiddleware)
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });
-
 
 export const dispatch = store.dispatch;
