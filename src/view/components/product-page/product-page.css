@@ -16,7 +16,17 @@
 }
 
 .compare-panel {
-    border: dashed;
-    border-width: 1px;
+    /* border: dashed;
+    border-width: 1px; */
     width: 49%;
+}
+
+.compare-list {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.compare-item {
+    border-style: dashed;
+    border: 1px;
 }

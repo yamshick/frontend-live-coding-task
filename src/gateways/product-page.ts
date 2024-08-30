@@ -1,4 +1,4 @@
-import { Category, Product } from '../models';
+import { Category, Product, LinkedProduct } from '../models';
 import { Category as APICategory } from './models/category';
 import { Product as APIProduct } from './models/product';
 import { IProductPageRepository } from '../services/products/interfaces';
@@ -14,9 +14,9 @@ export class MockProductPageGateway implements IProductPageRepository {
     return Promise.resolve(apiProductToModel(product));
   }
 
-  async getLinkedProducts(productId: string): Promise<Product[]> {
+  async getLinkedProducts(productId: string): Promise<LinkedProduct[]> {
     const result = products.filter((item: APIProduct) => item.id !== productId);
-    return Promise.resolve(result.map(apiProductToModel));
+    return Promise.resolve(result.map(apiLinkedProductToModel));
   }
 
   async getCategories(): Promise<Category[]> {
@@ -31,6 +31,17 @@ function apiProductToModel(product: APIProduct): Product {
   return {
     ...product,
     category: product.categoryId ? { id: product.categoryId } : undefined,
+  };
+}
+
+/**
+ * Преобразование структуры товара, полученного из API в модель приложения
+ */
+function apiLinkedProductToModel(product: APIProduct): LinkedProduct {
+  return {
+    ...product,
+    category: product.categoryId ? { id: product.categoryId } : undefined,
+    linkType: undefined,
   };
 }
 

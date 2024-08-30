@@ -1,20 +1,14 @@
 import { FC } from 'react';
-import { Product } from '../../../models';
 import './product-page.css';
+import { useSelector } from 'react-redux';
+import { isProductLoadingSelector, productSelector } from '../../../store/selectors/product-page';
 
-interface IProduct {
-  isLoading: boolean;
-  product: Product | null;
-  error: Error | null;
-}
+export const ProductItem: FC = () => {
+  const isLoading = useSelector(isProductLoadingSelector);
+  const product = useSelector(productSelector);
 
-export const ProductItem: FC<IProduct> = ({ isLoading, product, error }) => {
   if (isLoading) {
     return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error</div>;
   }
 
   return (

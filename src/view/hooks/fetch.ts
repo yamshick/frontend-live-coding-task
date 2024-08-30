@@ -1,53 +1,52 @@
 import { useState, useEffect } from 'react';
 import { Product } from '../../models';
 import { mockProductPageGateway } from '../../gateways/product-page';
+import { useDispatch } from 'react-redux';
+import {
+  setProduct,
+  setLinkedProducts,
+  setIsProductLoading,
+  setIsLinkedProductsLoading,
+} from '../../store/actions/product-page';
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const useFetchProduct = (productId: string | number) => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [data, setData] = useState<Product | null>(null);
-  const [error, setError] = useState<Error | null>(null);
-
+  const dispatch = useDispatch();
   const makeRequest = async (productId: string | number) => {
     try {
-      setError(null);
-      setIsLoading(true);
+      dispatch(setIsProductLoading(true));
       await delay(1000);
       const data = await mockProductPageGateway.getProduct(`${productId}`);
-      setData(data);
+      dispatch(setProduct(data));
+      console.log({ data });
     } catch (error) {
-      setError(error as Error);
+      console.error(error);
     } finally {
-      setIsLoading(false);
+      dispatch(setIsProductLoading(false));
     }
   };
 
   useEffect(() => {
+    console.log({ productId });
     if (productId) {
       makeRequest(productId);
     }
   }, [productId]);
-
-  return { isLoading, data, error };
 };
 
 export const useFetchLinkedProducts = (productId: string | number) => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [data, setData] = useState<Product[]>([]);
-  const [error, setError] = useState<Error | null>(null);
-
+  const dispatch = useDispatch();
   const makeRequest = async (productId: string | number) => {
     try {
-      setError(null);
-      setIsLoading(true);
+      dispatch(setIsLinkedProductsLoading(true));
       await delay(1000);
       const data = await mockProductPageGateway.getLinkedProducts(`${productId}`);
-      setData(data);
+      dispatch(setLinkedProducts(data));
     } catch (error) {
-      setError(error as Error);
+      console.error(error);
     } finally {
-      setIsLoading(false);
+      dispatch(setIsLinkedProductsLoading(false));
     }
   };
 
@@ -56,6 +55,4 @@ export const useFetchLinkedProducts = (productId: string | number) => {
       makeRequest(productId);
     }
   }, [productId]);
-
-  return { isLoading, data, error };
 };

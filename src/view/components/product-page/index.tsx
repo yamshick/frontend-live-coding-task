@@ -4,20 +4,13 @@ import { useFetchLinkedProducts, useFetchProduct } from '../../hooks/fetch';
 import './product-page.css';
 import { ProductItem } from './product';
 import { LinkedProducts } from './linked-products';
+import { CompareList } from './compare-list';
 
 export const ProductPage: FC = () => {
   const location = useLocation();
   const [productId, setProductId] = useState<string>('');
-  const {
-    isLoading: isProductLoading,
-    error: productError,
-    data: product,
-  } = useFetchProduct(productId);
-  const {
-    isLoading: isLinkedProductsLoading,
-    error: linkedProductsError,
-    data: linkedProducts,
-  } = useFetchLinkedProducts(productId);
+  useFetchProduct(productId);
+  useFetchLinkedProducts(productId);
 
   useEffect(() => {
     const productId = location.pathname.split('/')[2];
@@ -28,16 +21,13 @@ export const ProductPage: FC = () => {
     <div>
       <div className="header-container">
         <div>
-          <ProductItem isLoading={isProductLoading} error={productError} product={product} />
+          <ProductItem />
         </div>
-        <div className="compare-panel"></div>
+        <div className="compare-panel">
+          <CompareList products={[]} />
+        </div>
       </div>
-      <LinkedProducts
-        product={product}
-        isLoading={isProductLoading || isLinkedProductsLoading}
-        error={productError || linkedProductsError}
-        linkedProducts={linkedProducts}
-      />
+      <LinkedProducts />
     </div>
   );
 };
