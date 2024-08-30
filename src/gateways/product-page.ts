@@ -42,3 +42,5 @@ function apiCategoryToModel(category: APICategory): Category {
     ...category,
   };
 }
+
+export const mockProductPageGateway = new MockProductPageGateway()
